@@ -2,4 +2,9 @@
 <br><br>
 <button class="pure-button" (click)="goToDefineRoute()"> Define Route </button>
 <button class="pure-button" (click)="goToTrackRoute()"> Track Route </button>
+<button class="pure-button" (click)="toastError()"> Error Message </button>
+<button class="pure-button" (click)="toastInfo()"> Info Message </button>
+<m-aha type="{{toastService.type}}" header="{{toastService.header}}" *ngIf="toastService.ngIfControl">
+    {{toastService.message}}
+</m-aha>
 </m-container>
