@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +9,7 @@ export class ToastService {
   duration: number; 
   header: string; 
   ngIfControl: boolean; 
-  constructor() { 
+  constructor(private appref:ApplicationRef ) { 
     this.message = "";
     this.type = "";
     this.duration = 0; 
@@ -26,9 +27,12 @@ export class ToastService {
 
   
   show(){
+    
     this.ngIfControl = true;
+    this.appref.tick();
     setTimeout(()=>{
-      this.ngIfControl = false; 
+      this.ngIfControl = false;
+      this.appref.tick();
     },this.duration);
   }
 
