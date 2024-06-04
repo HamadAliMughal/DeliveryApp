@@ -51,7 +51,7 @@ export class DefineComponent {
       let location = event.latLng;
       this.drawMarker(location.lat(),location.lng());
       this.list.push(new Location(location.lat(),location.lng()));
-      this.toastService.prepare("User Clicked on "+location.lat()+","+location.lng(),"success",3000,"Location Clicked").show();
+      //this.toastService.prepare("User Clicked on "+location.lat()+","+location.lng(),"success",3000,"Location Clicked").show();
     });
   }
   storeRoute(){
@@ -67,8 +67,20 @@ export class DefineComponent {
       else
         this.toastService.prepare("Error. Bus number must be positive","error",3000,"Error").show();
   }
-  getRouteFromFirebase(){
-    
+  async getRouteFromFirebase(){
+    let routes = [];
+    routes = await this.firebaseService.readList("/routes");
+    routes.forEach(route =>{
+      if(route.routeNumber == this.routeNumber)
+        {
+          this.list = route.locations; 
+          // An assignments. Center around the average of the route. 
+          this.list.forEach((location)=>{
+            this.drawMarker(location.lat, location.lng);
+            this.map.setCenter({lat:location.lat, lng: location.lng});
+          })
+        }
+    })
   }
   playRoute(){}
 }
