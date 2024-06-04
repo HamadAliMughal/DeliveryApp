@@ -27,3 +27,7 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, DeliveryApp');
   });
 });
+function expect(textContent: string | null | undefined) {
+  throw new Error('Function not implemented.');
+}
+
